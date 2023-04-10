@@ -2,7 +2,11 @@ package com.warrior.luminate.listen;
 
 import com.alibaba.fastjson.JSON;
 import com.warrior.luminate.domain.TaskInfo;
+import com.warrior.luminate.pending.Task;
+import com.warrior.luminate.pending.TaskPendingHolding;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -17,8 +21,14 @@ import java.util.Optional;
  * @version 1.0
  */
 
-@Component
+
 public class Listener {
+
+    @Autowired
+    private ApplicationContext context;
+    @Autowired
+    private TaskPendingHolding taskPendingHolding;
+
     @KafkaListener(topics = "#{'${luminate.topic.name}'}")
     public void consumer(ConsumerRecord<?, String> consumerRecord, @Header(KafkaHeaders.GROUP_ID) String topicGroupId) {
         Optional<String> kafkaMessage = Optional.ofNullable(consumerRecord.value());
@@ -27,8 +37,10 @@ public class Listener {
             String messageGroupId = GroupIdUtils.getGroupIdByTaskInfo(taskInfoList.get(0));
             //每个消费者组只消费自己的消息
             if (topicGroupId.equals(messageGroupId)) {
-                //TODO 消费者组处理消息
-                System.out.println("topicGroupId: " + topicGroupId + "; handle message: " + taskInfoList.toString());
+                for (TaskInfo taskInfo : taskInfoList) {
+                    Task task = context.getBean(Task.class).setTaskInfo(taskInfo);
+                    taskPendingHolding.getExecutorThreadPool(topicGroupId).execute(task);
+                }
             }
         }
     }
