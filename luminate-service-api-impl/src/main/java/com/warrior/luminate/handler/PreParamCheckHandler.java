@@ -6,12 +6,11 @@ import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.MessageParam;
 import com.warrior.luminate.domain.SendTaskModel;
-import com.warrior.luminate.domain.enums.RespStatusEnum;
+import com.warrior.luminate.enums.RespStatusEnum;
 import com.warrior.luminate.pipeline.Handler;
 import com.warrior.luminate.pipeline.ProcessContext;
 import com.warrior.luminate.vo.BasicResultVO;
 import org.springframework.stereotype.Component;
-
 
 import java.util.List;
 import java.util.Objects;

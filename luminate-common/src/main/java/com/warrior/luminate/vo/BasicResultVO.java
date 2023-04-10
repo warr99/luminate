@@ -1,7 +1,7 @@
 package com.warrior.luminate.vo;
 
 
-import com.warrior.luminate.domain.enums.RespStatusEnum;
+import com.warrior.luminate.enums.RespStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

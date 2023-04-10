@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class ProcessTemplate <T extends ProcessModel>{
     /**
-     * handler 链
+     * com.warrior.luminate.handler 链
      */
     private List<Handler<T>> handlerList;
 }

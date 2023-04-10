@@ -2,7 +2,6 @@ package com.warrior.luminate.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
-
 import com.warrior.luminate.domain.MessageTemplate;
 import com.warrior.luminate.service.MessageTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;

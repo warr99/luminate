@@ -1,4 +1,4 @@
-package com.warrior.luminate.domain.enums;
+package com.warrior.luminate.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

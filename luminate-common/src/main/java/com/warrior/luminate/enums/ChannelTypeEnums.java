@@ -9,6 +9,7 @@ import lombok.ToString;
 /**
  * @author WARRIOR
  * @version 1.0
+ * 发送渠道的枚举
  */
 
 @Getter
@@ -37,13 +38,22 @@ public enum ChannelTypeEnums {
     /**
      * 英文标识
      */
-    private final String code_en;
+    private final String EnCode;
 
     public static Class<? extends ContentModel> getChannelModelClassByCode(Integer code) {
         ChannelTypeEnums[] values = values();
         for (ChannelTypeEnums value : values) {
             if (value.getCode().equals(code)) {
                 return value.getContentModelClass();
+            }
+        }
+        return null;
+    }
+
+    public static ChannelTypeEnums getChannelTypeByCode(Integer code) {
+        for (ChannelTypeEnums channelType : ChannelTypeEnums.values()) {
+            if (channelType.getCode().equals(code)) {
+                return channelType;
             }
         }
         return null;

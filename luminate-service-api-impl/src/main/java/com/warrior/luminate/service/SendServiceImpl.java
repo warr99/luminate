@@ -10,7 +10,6 @@ import com.warrior.luminate.vo.BasicResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.Collections;
 
 /**

@@ -26,7 +26,6 @@ public class SendController {
 
     @PostMapping("/send")
     public SendResponse send(@RequestBody SendRequest sendRequest) {
-        System.out.println(sendRequest.toString());
         return sendService.send(sendRequest);
     }
 

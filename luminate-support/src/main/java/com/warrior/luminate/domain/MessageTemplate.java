@@ -11,6 +11,7 @@ import java.io.Serializable;
 /**
  * 消息模板信息
  * @TableName message_template
+ * @author warrior
  */
 @Builder
 @TableName(value ="message_template")

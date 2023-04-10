@@ -10,6 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>luminate-handler</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.warrior</groupId>
+            <artifactId>luminate-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.warrior</groupId>
+            <artifactId>luminate-support</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

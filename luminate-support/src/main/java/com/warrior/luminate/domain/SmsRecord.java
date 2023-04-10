@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  * 短信记录信息
  * @TableName sms_record
+ * @author warrior
  */
 @TableName(value ="sms_record")
 public class SmsRecord implements Serializable {
