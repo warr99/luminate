@@ -4,18 +4,21 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
 
 import java.io.Serializable;
 
 /**
  * 短信记录信息
- * @TableName sms_record
+ *
  * @author warrior
+ * @TableName sms_record
  */
-@TableName(value ="sms_record")
+@Builder
+@TableName(value = "sms_record")
 public class SmsRecord implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -45,10 +48,6 @@ public class SmsRecord implements Serializable {
      */
     private String msgContent;
 
-    /**
-     * 下发批次的ID
-     */
-    private String seriesId;
 
     /**
      * 计费条数
@@ -61,7 +60,7 @@ public class SmsRecord implements Serializable {
     private String reportContent;
 
     /**
-     * 短信状态： 10.发送 20.成功 30.失败
+     * 短信状态： 1.等待回执 2.发送失败 3.发送成功
      */
     private Integer status;
 
@@ -84,14 +83,14 @@ public class SmsRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     *
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * 
+     *
      */
     public void setId(Long id) {
         this.id = id;
@@ -167,19 +166,6 @@ public class SmsRecord implements Serializable {
         this.msgContent = msgContent;
     }
 
-    /**
-     * 下发批次的ID
-     */
-    public String getSeriesId() {
-        return seriesId;
-    }
-
-    /**
-     * 下发批次的ID
-     */
-    public void setSeriesId(String seriesId) {
-        this.seriesId = seriesId;
-    }
 
     /**
      * 计费条数
@@ -278,18 +264,17 @@ public class SmsRecord implements Serializable {
         }
         SmsRecord other = (SmsRecord) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getMessageTemplateId() == null ? other.getMessageTemplateId() == null : this.getMessageTemplateId().equals(other.getMessageTemplateId()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getSupplierId() == null ? other.getSupplierId() == null : this.getSupplierId().equals(other.getSupplierId()))
-            && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
-            && (this.getMsgContent() == null ? other.getMsgContent() == null : this.getMsgContent().equals(other.getMsgContent()))
-            && (this.getSeriesId() == null ? other.getSeriesId() == null : this.getSeriesId().equals(other.getSeriesId()))
-            && (this.getChargingNum() == null ? other.getChargingNum() == null : this.getChargingNum().equals(other.getChargingNum()))
-            && (this.getReportContent() == null ? other.getReportContent() == null : this.getReportContent().equals(other.getReportContent()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getSendDate() == null ? other.getSendDate() == null : this.getSendDate().equals(other.getSendDate()))
-            && (this.getCreated() == null ? other.getCreated() == null : this.getCreated().equals(other.getCreated()))
-            && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()));
+                && (this.getMessageTemplateId() == null ? other.getMessageTemplateId() == null : this.getMessageTemplateId().equals(other.getMessageTemplateId()))
+                && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
+                && (this.getSupplierId() == null ? other.getSupplierId() == null : this.getSupplierId().equals(other.getSupplierId()))
+                && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
+                && (this.getMsgContent() == null ? other.getMsgContent() == null : this.getMsgContent().equals(other.getMsgContent()))
+                && (this.getChargingNum() == null ? other.getChargingNum() == null : this.getChargingNum().equals(other.getChargingNum()))
+                && (this.getReportContent() == null ? other.getReportContent() == null : this.getReportContent().equals(other.getReportContent()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getSendDate() == null ? other.getSendDate() == null : this.getSendDate().equals(other.getSendDate()))
+                && (this.getCreated() == null ? other.getCreated() == null : this.getCreated().equals(other.getCreated()))
+                && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()));
     }
 
     @Override
@@ -302,7 +287,6 @@ public class SmsRecord implements Serializable {
         result = prime * result + ((getSupplierId() == null) ? 0 : getSupplierId().hashCode());
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
         result = prime * result + ((getMsgContent() == null) ? 0 : getMsgContent().hashCode());
-        result = prime * result + ((getSeriesId() == null) ? 0 : getSeriesId().hashCode());
         result = prime * result + ((getChargingNum() == null) ? 0 : getChargingNum().hashCode());
         result = prime * result + ((getReportContent() == null) ? 0 : getReportContent().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -324,7 +308,6 @@ public class SmsRecord implements Serializable {
         sb.append(", supplierId=").append(supplierId);
         sb.append(", supplierName=").append(supplierName);
         sb.append(", msgContent=").append(msgContent);
-        sb.append(", seriesId=").append(seriesId);
         sb.append(", chargingNum=").append(chargingNum);
         sb.append(", reportContent=").append(reportContent);
         sb.append(", status=").append(status);

@@ -11,7 +11,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import com.warrior.luminate.utils.GroupIdUtils;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

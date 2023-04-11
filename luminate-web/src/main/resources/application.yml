@@ -27,3 +27,13 @@ spring:
 luminate:
   topic:
     name: luminate
+
+aliyun:
+  sms:
+    account:
+      access-key-id: LTAI5tNRKzZv8Z73vMsEUwvq
+      access-key-secret: CwqIKAnKWeGEafi8Rc4ezBDKVuyVU8
+      sign-name: luminate
+      template-code: SMS_276225334
+
+

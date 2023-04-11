@@ -63,15 +63,19 @@
                 <version>1.2.78</version>
             </dependency>
 
-            <!--腾讯sdk(目前用在短信上)-->
+<!--            <dependency>-->
+<!--                <groupId>com.aliyun</groupId>-->
+<!--                <artifactId>alibabacloud-dysmsapi20170525</artifactId>-->
+<!--                <version>2.0.23</version>-->
+<!--            </dependency>-->
             <dependency>
-                <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java</artifactId>
-                <version>3.1.390</version>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>2.0.23</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
-
 
 
 </project>
