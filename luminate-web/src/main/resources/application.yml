@@ -22,12 +22,19 @@ spring:
       auto-commit-interval: 1000
       enable-auto-commit: true
       auto-offset-reset: earliest
+  # redis 相关配置
+  redis:
+    host: 192.168.20.160
+    port: 6379
+    password: CXr123456_redis
+    database: 2
 
 
+# kafka topic name
 luminate:
   topic:
     name: luminate
-
+# 阿里云 SMS 相关配置
 aliyun:
   sms:
     account:

@@ -10,5 +10,6 @@ public class LuminateConstant {
      */
     public static final Integer BATCH_RECEIVER_SIZE = 100;
     public static final String YYYY_MM_DD = "yyyyMMdd";
+    public static final String ONE = "1";
 }
 

@@ -32,16 +32,19 @@ public class SmsHandler extends AbstractHandler {
 
     @Override
     public void handler(TaskInfo taskInfo) {
-        SmsParam smsParam = SmsParam.builder()
-                .phones(taskInfo.getReceiver())
-                .content(getSmsContent(taskInfo))
-                .messageTemplateId(taskInfo.getMessageTemplateId())
-                .supplierId(10)
-                .supplierName("阿里云通知类消息渠道").build();
-        List<SmsRecord> recordList = aliyunSmsScript.send(smsParam);
-        if (!CollUtil.isEmpty(recordList)) {
-            smsRecordService.saveBatch(recordList);
-        }
+        System.out.println("taskInfo: " + taskInfo.toString());
+        System.out.println("handler SMS");
+//        TODO 处理sms短信
+//        SmsParam smsParam = SmsParam.builder()
+//                .phones(taskInfo.getReceiver())
+//                .content(getSmsContent(taskInfo))
+//                .messageTemplateId(taskInfo.getMessageTemplateId())
+//                .supplierId(10)
+//                .supplierName("阿里云通知类消息渠道").build();
+//        List<SmsRecord> recordList = aliyunSmsScript.send(smsParam);
+//        if (!CollUtil.isEmpty(recordList)) {
+//            smsRecordService.saveBatch(recordList);
+//        }
     }
 
 
