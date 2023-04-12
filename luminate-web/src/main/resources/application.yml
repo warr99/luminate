@@ -42,5 +42,12 @@ aliyun:
       access-key-secret: CwqIKAnKWeGEafi8Rc4ezBDKVuyVU8
       sign-name: luminate
       template-code: SMS_276225334
+# qq email 相关配置
+email:
+  host: smtp.qq.com
+  port: 465
+  user: warrior22@qq.com
+  from: warrior22@qq.com
+  pass: mszicvbchqzwbfii
 
 

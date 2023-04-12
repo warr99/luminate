@@ -1,6 +1,7 @@
 package com.warrior.luminate.enums;
 
 import com.warrior.luminate.dto.ContentModel;
+import com.warrior.luminate.dto.EmailContentModel;
 import com.warrior.luminate.dto.SmsContentModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,8 @@ public enum ChannelTypeEnums {
     /**
      * sms 短信
      */
-    SMS(30, "sms(短信)", SmsContentModel.class, "sms");
+    SMS(30, "sms(短信)", SmsContentModel.class, "sms"),
+    EMAIL(40, "email(邮件)", EmailContentModel.class, "email");
     /**
      * 编码值
      */

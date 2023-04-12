@@ -19,8 +19,9 @@ public abstract class AbstractHandler {
     /**
      * 统一处理的handler接口
      * @param taskInfo 消息任务信息
+     * @return boolean
      */
-    public abstract void handler(TaskInfo taskInfo);
+    public abstract boolean handler(TaskInfo taskInfo);
 
     @PostConstruct
     private void init() {

@@ -2,6 +2,8 @@ package com.warrior.luminate.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.google.common.base.Throwables;
 import com.warrior.luminate.domain.SmsRecord;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.SmsParam;
@@ -9,6 +11,7 @@ import com.warrior.luminate.dto.SmsContentModel;
 import com.warrior.luminate.enums.ChannelTypeEnums;
 import com.warrior.luminate.script.AliyunSmsScript;
 import com.warrior.luminate.service.SmsRecordService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  * @author WARRIOR
  * @version 1.0
  */
+@Slf4j
 @Component
 public class SmsHandler extends AbstractHandler {
 
@@ -31,9 +35,9 @@ public class SmsHandler extends AbstractHandler {
 
 
     @Override
-    public void handler(TaskInfo taskInfo) {
-        System.out.println("taskInfo: " + taskInfo.toString());
-        System.out.println("handler SMS");
+    public boolean handler(TaskInfo taskInfo) {
+        log.info("SmsHandler#handler taskInfo:{}", JSON.toJSONString(taskInfo));
+        return true;
 //        TODO 处理sms短信
 //        SmsParam smsParam = SmsParam.builder()
 //                .phones(taskInfo.getReceiver())
@@ -41,10 +45,18 @@ public class SmsHandler extends AbstractHandler {
 //                .messageTemplateId(taskInfo.getMessageTemplateId())
 //                .supplierId(10)
 //                .supplierName("阿里云通知类消息渠道").build();
-//        List<SmsRecord> recordList = aliyunSmsScript.send(smsParam);
-//        if (!CollUtil.isEmpty(recordList)) {
-//            smsRecordService.saveBatch(recordList);
+//        try {
+//            List<SmsRecord> recordList = aliyunSmsScript.send(smsParam);
+//            if (!CollUtil.isEmpty(recordList)) {
+//                smsRecordService.saveBatch(recordList);
+//            }
+//            return true;
+//        } catch (Exception e) {
+//            log.error("SmsHandler#handler fail:{},params:{}",
+//                    Throwables.getStackTraceAsString(e), JSON.toJSONString(smsParam));
 //        }
+//        return false;
+
     }
 
 

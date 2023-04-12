@@ -25,6 +25,11 @@
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
         </dependency>
+        <!--邮件发送-->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+        </dependency>
     </dependencies>
 
 

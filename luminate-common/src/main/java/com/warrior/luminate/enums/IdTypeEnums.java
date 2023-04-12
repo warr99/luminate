@@ -16,7 +16,8 @@ public enum IdTypeEnums {
     /**
      * 手机号码
      */
-    PHONE(30, "phone");
+    PHONE(30, "phone"),
+    EMAIL(40, "email");
     /**
      * 编码
      */
