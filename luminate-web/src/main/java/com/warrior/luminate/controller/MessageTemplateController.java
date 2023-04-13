@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 
 import com.warrior.luminate.domain.MessageTemplate;
 import com.warrior.luminate.service.MessageTemplateService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,18 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author WARRIOR
  * @version 1.0
  */
+@Api(value = "MessageTemplateController", tags = {"模板接口"})
 @RestController
 public class MessageTemplateController {
     private final MessageTemplateService messageTemplateService;
 
     @Autowired
-    public MessageTemplateController(MessageTemplateService messageTemplateService ) {
+    public MessageTemplateController(MessageTemplateService messageTemplateService) {
         this.messageTemplateService = messageTemplateService;
     }
 
     /**
      * test insert
      */
+    @ApiOperation(value = "插入模板")
     @GetMapping("/insert")
     public String insert() {
 
@@ -61,6 +65,7 @@ public class MessageTemplateController {
     /**
      * test query
      */
+    @ApiOperation(value = "查询模板")
     @GetMapping("/query")
     public String query() {
         Iterable<MessageTemplate> all = messageTemplateService.list();
