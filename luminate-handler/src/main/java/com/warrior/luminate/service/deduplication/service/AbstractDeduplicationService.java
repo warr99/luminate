@@ -1,10 +1,12 @@
-package com.warrior.luminate.service;
+package com.warrior.luminate.service.deduplication.service;
 
 import cn.hutool.core.collection.CollUtil;
+import com.alibaba.fastjson.JSON;
 import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
 import com.warrior.luminate.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
@@ -14,7 +16,8 @@ import java.util.*;
  * @version 1.0
  */
 
-public abstract class AbstractDeduplicationRule {
+@Slf4j
+public abstract class AbstractDeduplicationService implements DeduplicationService {
 
     @Autowired
     private RedisUtil redisUtil;
@@ -43,6 +46,7 @@ public abstract class AbstractDeduplicationRule {
      *
      * @param param 去重需要的参数
      */
+    @Override
     public void deduplication(DeduplicationParam param) {
 
         TaskInfo taskInfo = param.getTaskInfo();
@@ -58,7 +62,10 @@ public abstract class AbstractDeduplicationRule {
             String value = keyValueMap.get(key);
             //在redis中存在且已经大于等于countNum->加入去重列表
             if (value != null && Integer.parseInt(value) >= param.getCountNum()) {
-                System.out.println("filter receiver: " + receiver + "; [class] " + this.getClass().getName());
+                log.info("filter receiver: {}, deduplication: {}, content: {}",
+                        receiver,
+                        this.getClass().toString(),
+                        JSON.toJSONString(taskInfo));
                 filterReceiver.add(receiver);
             } else {
                 //在redis中不存在或者小于countNum

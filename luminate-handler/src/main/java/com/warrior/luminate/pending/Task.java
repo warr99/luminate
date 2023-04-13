@@ -2,7 +2,7 @@ package com.warrior.luminate.pending;
 
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.handler.HandlerHolder;
-import com.warrior.luminate.service.DeduplicationService;
+import com.warrior.luminate.service.deduplication.DeduplicationRuleService;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class Task implements Runnable {
     @Autowired
     private HandlerHolder handlerHolder;
     @Autowired
-    private DeduplicationService deduplicationService;
+    private DeduplicationRuleService deduplicationService;
 
     private TaskInfo taskInfo;
 

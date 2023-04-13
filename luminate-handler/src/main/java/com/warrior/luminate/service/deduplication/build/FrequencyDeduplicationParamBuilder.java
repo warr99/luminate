@@ -1,0 +1,27 @@
+package com.warrior.luminate.service.deduplication.build;
+
+import cn.hutool.core.date.DateUtil;
+import com.warrior.luminate.domain.TaskInfo;
+import com.warrior.luminate.domian.DeduplicationParam;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+/**
+ * @author WARRIOR
+ * @version 1.0
+ */
+@Component
+public class FrequencyDeduplicationParamBuilder extends AbstractDeduplicationBuilder implements Builder {
+    @Override
+    public DeduplicationParam build(String configurableDeduplicationParam, TaskInfo taskInfo) {
+        if (configurableDeduplicationParam == null) {
+            return null;
+        }
+        DeduplicationParam deduplicationParam = getParamsFromConfig(deduplicationType, configurableDeduplicationParam, taskInfo);
+        //过期时间 —> 从当前时间到当天结束时间的剩余秒数
+        Long seconds = (DateUtil.endOfDay(new Date()).getTime() - DateUtil.current()) / 1000;
+        deduplicationParam.setDeduplicationTime(seconds);
+        return deduplicationParam;
+    }
+}

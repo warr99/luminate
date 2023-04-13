@@ -19,6 +19,7 @@ import com.warrior.luminate.pipeline.ProcessContext;
 import com.warrior.luminate.service.MessageTemplateService;
 import com.warrior.luminate.utils.ContentHolderUtil;
 import com.warrior.luminate.vo.BasicResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -30,6 +31,7 @@ import java.util.*;
  * 组装参数
  */
 
+@Slf4j
 @Component
 public class AssembleHandler implements Handler<SendTaskModel> {
 
@@ -55,7 +57,7 @@ public class AssembleHandler implements Handler<SendTaskModel> {
                 sendTaskModel.setTaskInfo(taskInfoList);
             } else if (BusinessCode.RECALL.getCode().equals(context.getCode())) {
                 //TODO 撤回信息
-                System.out.println("处理撤回消息");
+                log.info("处理撤回消息,content: {}", JSONObject.toJSONString(context.getProcessModel().getTaskInfo()));
             }
         } catch (Exception exception) {
             context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.CLIENT_BAD_PARAMETERS));

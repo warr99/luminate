@@ -1,4 +1,4 @@
-package com.warrior.luminate.service;
+package com.warrior.luminate.service.deduplication.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.domain.TaskInfo;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 频率去重——一天内一个用户只能收到某个渠道的消息 N 次
  */
 @Service
-public class FrequencyDeduplicationRule extends AbstractDeduplicationRule {
+public class FrequencyDeduplicationService extends AbstractDeduplicationService {
     private static final String PREFIX = "FRE";
 
     /**

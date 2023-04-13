@@ -1,5 +1,6 @@
 package com.warrior.luminate.domian;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.warrior.luminate.domain.TaskInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,10 +26,12 @@ public class DeduplicationParam {
      * 去重时间
      * 单位：秒
      */
+    @JSONField(name = "time")
     private Long deduplicationTime;
 
     /**
-     * 达到countNum后去重
+     * 需达到的次数去重
      */
+    @JSONField(name = "num")
     private Integer countNum;
 }

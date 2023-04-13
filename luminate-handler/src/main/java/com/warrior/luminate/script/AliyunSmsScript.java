@@ -7,9 +7,11 @@ import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.*;
 import com.aliyun.teaopenapi.models.Config;
 import com.aliyun.teautil.models.RuntimeOptions;
+import com.google.common.base.Throwables;
 import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.SmsRecord;
 import com.warrior.luminate.domian.SmsParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,7 @@ import java.util.Set;
  * * @return Client
  * * @throws Exception
  */
+@Slf4j
 @Component
 public class AliyunSmsScript {
     @Value("${aliyun.sms.account.access-key-id}")
@@ -67,11 +70,10 @@ public class AliyunSmsScript {
             SendSmsRequest sendSmsRequest = assembleReq(smsParam);
             RuntimeOptions runtime = new RuntimeOptions();
             SendSmsResponse sendSmsResponse = client.sendSmsWithOptions(sendSmsRequest, runtime);
-            System.out.println(sendSmsResponse.statusCode);
             return assembleSmsRecord(smsParam, sendSmsResponse);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("send exception");
+            log.error("AliyunSmsScript#send fail!{},params:{}", Throwables.getStackTraceAsString(e), smsParam);
             return null;
         }
 
@@ -113,7 +115,6 @@ public class AliyunSmsScript {
         List<SmsRecord> smsRecords = new ArrayList<>();
         try {
             String bizId = response.getBody().getBizId();
-            System.out.println("bizId: " + bizId);
             Set<String> phones = smsParam.getPhones();
             for (String phone : phones) {
                 QuerySendDetailsRequest queryReq = new QuerySendDetailsRequest()
