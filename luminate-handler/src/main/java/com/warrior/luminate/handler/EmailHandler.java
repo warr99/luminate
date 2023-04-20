@@ -43,6 +43,7 @@ public class EmailHandler extends AbstractHandler {
         try {
             MailUtil.send(account, taskInfo.getReceiver(), emailContentModel.getTitle(),
                     emailContentModel.getContent(), true);
+            log.info("EmailHandler#handler success!,params:{}",taskInfo.toString());
         } catch (Exception e) {
             log.error("EmailHandler#handler fail!{},params:{}", Throwables.getStackTraceAsString(e), taskInfo);
             return false;

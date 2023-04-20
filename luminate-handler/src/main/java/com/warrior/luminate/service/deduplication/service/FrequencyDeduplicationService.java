@@ -2,6 +2,10 @@ package com.warrior.luminate.service.deduplication.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.domain.TaskInfo;
+import com.warrior.luminate.enums.DeduplicationTypeEnums;
+import com.warrior.luminate.service.deduplication.limit.LimitService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +17,12 @@ import org.springframework.stereotype.Service;
 public class FrequencyDeduplicationService extends AbstractDeduplicationService {
     private static final String PREFIX = "FRE";
 
+    @Autowired
+    public FrequencyDeduplicationService(@Qualifier("SimpleLimitService") LimitService limitService) {
+        this.limitService = limitService;
+        this.deduplicationType = DeduplicationTypeEnums.FREQUENCY.getCode();
+    }
+
     /**
      * 业务规则去重 构建key
      * key : receiver + sendChannel
@@ -23,7 +33,7 @@ public class FrequencyDeduplicationService extends AbstractDeduplicationService 
      * @return key
      */
     @Override
-    protected String buildDeduplicationKey(TaskInfo taskInfo, String receiver) {
+    public String buildDeduplicationKey(TaskInfo taskInfo, String receiver) {
         return PREFIX + StrUtil.C_UNDERLINE
                 + receiver + StrUtil.C_UNDERLINE
                 + taskInfo.getSendChannel();

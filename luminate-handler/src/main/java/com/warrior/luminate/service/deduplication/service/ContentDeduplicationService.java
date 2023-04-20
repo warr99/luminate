@@ -3,6 +3,10 @@ package com.warrior.luminate.service.deduplication.service;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
 import com.warrior.luminate.domain.TaskInfo;
+import com.warrior.luminate.enums.DeduplicationTypeEnums;
+import com.warrior.luminate.service.deduplication.limit.LimitService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +17,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ContentDeduplicationService extends AbstractDeduplicationService {
+
+    @Autowired
+    public ContentDeduplicationService(@Qualifier("SlideWindowLimitService") LimitService limitService) {
+        this.limitService = limitService;
+        this.deduplicationType = DeduplicationTypeEnums.CONTENT.getCode();
+    }
+
     /**
      * 构建内容去重的 key
      * key: md5(templateId + receiver + content)
@@ -22,7 +33,7 @@ public class ContentDeduplicationService extends AbstractDeduplicationService {
      * @return key
      */
     @Override
-    protected String buildDeduplicationKey(TaskInfo taskInfo, String receiver) {
+    public String buildDeduplicationKey(TaskInfo taskInfo, String receiver) {
         return DigestUtil.md5Hex(taskInfo.getMessageTemplateId() + receiver + JSON.toJSONString(taskInfo.getContentModel()));
     }
 }
