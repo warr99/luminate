@@ -15,6 +15,7 @@
         <module>luminate-service-api</module>
         <module>luminate-service-api-impl</module>
         <module>luminate-support</module>
+        <module>luminate-cron</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
