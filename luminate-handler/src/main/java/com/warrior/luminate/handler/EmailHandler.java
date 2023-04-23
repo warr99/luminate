@@ -1,5 +1,6 @@
 package com.warrior.luminate.handler;
 
+
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import com.google.common.base.Throwables;
@@ -10,8 +11,6 @@ import com.warrior.luminate.enums.ChannelTypeEnums;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 
 /**
  * @author WARRIOR

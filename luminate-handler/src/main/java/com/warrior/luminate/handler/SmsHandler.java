@@ -1,20 +1,14 @@
 package com.warrior.luminate.handler;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.google.common.base.Throwables;
-import com.warrior.luminate.domain.SmsRecord;
 import com.warrior.luminate.domain.TaskInfo;
-import com.warrior.luminate.domian.SmsParam;
 import com.warrior.luminate.dto.SmsContentModel;
 import com.warrior.luminate.enums.ChannelTypeEnums;
 import com.warrior.luminate.script.AliyunSmsScript;
 import com.warrior.luminate.service.SmsRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * @author WARRIOR

@@ -1,8 +1,10 @@
 package com.warrior.luminate.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -11,8 +13,10 @@ import java.util.Date;
  * @version 1.0
  */
 @Data
-@NoArgsConstructor
+@Accessors(chain = true)
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class XxlJobInfo {
     /**
      * 主键ID
@@ -30,7 +34,7 @@ public class XxlJobInfo {
      */
     private String author;
     /**
-     * // 报警邮件
+     *  报警邮件
      */
     private String alarmEmail;
     /**

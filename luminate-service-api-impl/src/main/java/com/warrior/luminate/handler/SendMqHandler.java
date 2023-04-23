@@ -11,7 +11,6 @@ import com.warrior.luminate.pipeline.ProcessContext;
 import com.warrior.luminate.vo.BasicResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;

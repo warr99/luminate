@@ -58,6 +58,7 @@ xxl:
       password: 123456
     executor:
       appname: luminate-executor
+      title: luminate执行器
       ip: 127.0.0.1
       port: -1
       logpath:

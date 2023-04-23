@@ -1,15 +1,17 @@
 package com.warrior.luminate.controller;
 
-import cn.hutool.core.date.DateUtil;
-import com.alibaba.fastjson.JSON;
-
+import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.domain.MessageTemplate;
 import com.warrior.luminate.service.MessageTemplateService;
+import com.warrior.luminate.vo.BasicResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author WARRIOR
@@ -26,52 +28,59 @@ public class MessageTemplateController {
     }
 
     /**
-     * test insert
+     * 如果Id存在，则修改
+     * 如果Id不存在，则保存
      */
-    @ApiOperation(value = "插入模板")
-    @GetMapping("/insert")
-    public String insert() {
-
-        MessageTemplate messageTemplate = MessageTemplate.builder()
-                .name("test message")
-                .auditStatus(10)
-                .flowId("flow")
-                .msgStatus(30)
-                .idType(30)
-                .sendChannel(30)
-                .templateType(10)
-                .msgType(10)
-                .expectPushTime("0")
-                .msgContent("{\"content\":\"{$content}\",\"url\":\"www.baidu.com\",\"title\":\"cxr\"}")
-                .sendAccount(66)
-                .creator("warrior")
-                .updator("warrior")
-                .team("warrior team")
-                .proposer("warrior")
-                .auditor("warrior")
-                .isDeleted(0)
-                .created(Math.toIntExact(DateUtil.currentSeconds()))
-                .updated(Math.toIntExact(DateUtil.currentSeconds()))
-                .deduplicationTime(1)
-                .isNightShield(0)
-                .build();
-
-        boolean save = messageTemplateService.save(messageTemplate);
-
-        return JSON.toJSONString(save);
-
+    @PostMapping("/save")
+    @ApiOperation("/保存数据")
+    public BasicResultVO<Boolean> saveOrUpdate(@RequestBody MessageTemplate messageTemplate) {
+        boolean isSuccess = messageTemplateService.saveOrUpdate(messageTemplate);
+        return BasicResultVO.successWithData(isSuccess);
     }
 
     /**
-     * test query
+     * 根据Id查找
      */
-    @ApiOperation(value = "查询模板")
-    @GetMapping("/query")
-    public String query() {
-        Iterable<MessageTemplate> all = messageTemplateService.list();
-        for (MessageTemplate messageTemplate : all) {
-            return JSON.toJSONString(messageTemplate);
+    @GetMapping("query/{id}")
+    @ApiOperation("/根据Id查找")
+    public BasicResultVO<MessageTemplate> queryById(@PathVariable("id") Long id) {
+        MessageTemplate messageTemplate = messageTemplateService.getById(id);
+        return BasicResultVO.successWithData(messageTemplate);
+    }
+
+    /**
+     * 根据Id删除
+     * id多个用逗号分隔开
+     */
+    @DeleteMapping("delete/{id}")
+    @ApiOperation("/根据Ids删除")
+    public BasicResultVO<?> deleteByIds(@PathVariable("id") String id) {
+        if (StrUtil.isNotBlank(id)) {
+            List<Long> idList = Arrays.stream(id.split(StrUtil.COMMA)).map(Long::valueOf).collect(Collectors.toList());
+            messageTemplateService.removeByIds(idList);
+            return BasicResultVO.success();
         }
-        return null;
+        return BasicResultVO.fail();
+    }
+
+    /**
+     * 启动模板的定时任务
+     */
+    @PostMapping("start/{id}")
+    @ApiOperation("/启动模板的定时任务")
+    public BasicResultVO<?> start(@RequestBody @PathVariable("id") Long id) {
+        messageTemplateService.startCronTask(id);
+        return BasicResultVO.success();
+    }
+
+    /**
+     * 暂停模板的定时任务
+     */
+    @PostMapping("stop/{id}")
+    @ApiOperation("/暂停模板的定时任务")
+    public BasicResultVO<?> stop(@RequestBody @PathVariable("id") Long id) {
+        messageTemplateService.stopCronTask(id);
+
+        return BasicResultVO.success();
     }
 }

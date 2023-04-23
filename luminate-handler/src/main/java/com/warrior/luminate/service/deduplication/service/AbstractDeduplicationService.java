@@ -1,17 +1,12 @@
 package com.warrior.luminate.service.deduplication.service;
 
 import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSON;
-import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
-import com.warrior.luminate.enums.DeduplicationTypeEnums;
 import com.warrior.luminate.service.deduplication.DeduplicationHolder;
 import com.warrior.luminate.service.deduplication.limit.LimitService;
-import com.warrior.luminate.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 import java.util.*;

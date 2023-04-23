@@ -71,7 +71,7 @@ public final class BasicResultVO<T> {
      * @param data 数据
      * @return 带数据的成功响应
      */
-    public static <T> BasicResultVO<T> success(T data) {
+    public static <T> BasicResultVO<T> successWithData(T data) {
         return new BasicResultVO<>(RespStatusEnum.SUCCESS, data);
     }
 

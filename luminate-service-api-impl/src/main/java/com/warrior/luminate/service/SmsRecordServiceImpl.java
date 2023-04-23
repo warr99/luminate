@@ -1,10 +1,9 @@
-package com.warrior.luminate.service.impl;
+package com.warrior.luminate.service;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.warrior.luminate.domain.SmsRecord;
 import com.warrior.luminate.mapper.SmsRecordMapper;
-import com.warrior.luminate.service.SmsRecordService;
 import org.springframework.stereotype.Service;
 
 /**
