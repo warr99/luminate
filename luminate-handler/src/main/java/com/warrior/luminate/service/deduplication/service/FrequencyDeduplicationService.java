@@ -2,8 +2,8 @@ package com.warrior.luminate.service.deduplication.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.domain.TaskInfo;
-import com.warrior.luminate.enums.DeduplicationTypeEnums;
 import com.warrior.luminate.service.deduplication.limit.LimitService;
+import com.warrior.luminate.enums.DeduplicationTypeEnums;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

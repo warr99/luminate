@@ -1,16 +1,16 @@
-package com.warrior.luminate.service.impl;
+package com.warrior.luminate.xxl.service.impl;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Throwables;
-import com.warrior.luminate.constants.XxlJobConstant;
-import com.warrior.luminate.entity.XxlJobGroup;
-import com.warrior.luminate.entity.XxlJobInfo;
 import com.warrior.luminate.enums.RespStatusEnum;
-import com.warrior.luminate.service.CronTaskService;
 import com.warrior.luminate.vo.BasicResultVO;
+import com.warrior.luminate.xxl.constants.XxlJobConstant;
+import com.warrior.luminate.xxl.entity.XxlJobGroup;
+import com.warrior.luminate.xxl.entity.XxlJobInfo;
+import com.warrior.luminate.xxl.service.CronTaskService;
 import com.xxl.job.core.biz.model.ReturnT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +65,7 @@ public class CronTaskServiceImpl implements CronTaskService {
             log.error("CronTaskService#saveTask fail,e:{},param:{},response:{}", Throwables.getStackTraceAsString(e)
                     , JSON.toJSONString(xxlJobInfo), JSON.toJSONString(returnT));
         }
-        return BasicResultVO.fail(RespStatusEnum.SERVICE_ERROR, JSON.toJSONString(returnT));
+        return BasicResultVO.fail(RespStatusEnum.SERVICE_ERROR, returnT == null ? null : returnT.getMsg());
     }
 
     @Override

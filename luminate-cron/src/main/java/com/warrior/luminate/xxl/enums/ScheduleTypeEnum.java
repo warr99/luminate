@@ -1,4 +1,4 @@
-package com.warrior.luminate.enums;
+package com.warrior.luminate.xxl.enums;
 
 /**
  * 调度类型

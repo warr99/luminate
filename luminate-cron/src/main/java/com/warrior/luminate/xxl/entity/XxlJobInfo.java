@@ -1,4 +1,4 @@
-package com.warrior.luminate.entity;
+package com.warrior.luminate.xxl.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

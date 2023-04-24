@@ -7,7 +7,6 @@
     <!-- 设置日志输出路径  可以使“${}”来使用变量。-->
     <property name="log.path" value="logs"/>
 
-
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
@@ -16,7 +15,6 @@
             <charset>UTF-8</charset>
         </encoder>
     </appender>
-
 
     <!-- 时间滚动输出 level为 INFO 日志 -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -70,11 +68,4 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
-
-    <root level="info">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="INFO_FILE"/>
-        <appender-ref ref="ERROR_FILE"/>
-    </root>
-
 </configuration>

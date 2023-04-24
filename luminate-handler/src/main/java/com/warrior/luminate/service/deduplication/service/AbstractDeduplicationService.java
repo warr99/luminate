@@ -51,7 +51,7 @@ public abstract class AbstractDeduplicationService implements DeduplicationServi
         Set<String> receiverSet = taskInfo.getReceiver();
         Set<String> filterReceiver = limitService.limitFilter(this, taskInfo, param);
         if (CollUtil.isNotEmpty(filterReceiver)) {
-            log.info("filter receiver{}", filterReceiver.toString());
+            log.info("filter receiver {} by {}", filterReceiver.toString(),limitService.toString());
             receiverSet.removeAll(filterReceiver);
         }
     }

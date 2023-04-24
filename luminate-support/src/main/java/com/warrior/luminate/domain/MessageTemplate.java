@@ -138,6 +138,11 @@ public class MessageTemplate implements Serializable {
      */
     private Integer cronTaskId;
 
+    /**
+     * 定时发送的人群的文件路径
+     */
+    private String cronCrowdPath;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -176,7 +181,8 @@ public class MessageTemplate implements Serializable {
             && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()))
             && (this.getDeduplicationTime() == null ? other.getDeduplicationTime() == null : this.getDeduplicationTime().equals(other.getDeduplicationTime()))
             && (this.getIsNightShield() == null ? other.getIsNightShield() == null : this.getIsNightShield().equals(other.getIsNightShield()))
-            && (this.getCronTaskId() == null ? other.getCronTaskId() == null : this.getCronTaskId().equals(other.getCronTaskId()));
+            && (this.getCronTaskId() == null ? other.getCronTaskId() == null : this.getCronTaskId().equals(other.getCronTaskId()))
+            && (this.getCronCrowdPath() == null ? other.getCronCrowdPath() == null : this.getCronCrowdPath().equals(other.getCronCrowdPath()));
     }
 
     @Override
@@ -206,6 +212,7 @@ public class MessageTemplate implements Serializable {
         result = prime * result + ((getDeduplicationTime() == null) ? 0 : getDeduplicationTime().hashCode());
         result = prime * result + ((getIsNightShield() == null) ? 0 : getIsNightShield().hashCode());
         result = prime * result + ((getCronTaskId() == null) ? 0 : getCronTaskId().hashCode());
+        result = prime * result + ((getCronCrowdPath() == null) ? 0 : getCronCrowdPath().hashCode());
         return result;
     }
 
@@ -239,6 +246,7 @@ public class MessageTemplate implements Serializable {
         sb.append(", isNightShield=").append(isNightShield);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append(",cronTaskId=").append(cronTaskId);
+        sb.append(",cronCrowdPath=").append(cronCrowdPath);
         sb.append("] ");
         return sb.toString();
     }

@@ -1,6 +1,7 @@
 package com.warrior.luminate.service;
 
 
+import com.warrior.luminate.domain.BatchSendRequest;
 import com.warrior.luminate.domain.SendRequest;
 import com.warrior.luminate.domain.SendResponse;
 
@@ -17,4 +18,13 @@ public interface SendService {
      * @return SendResponse
      */
     SendResponse send(SendRequest sendRequest);
+
+
+    /**
+     * 批量发接口
+     *
+     * @param batchSendRequest 批量发送请求的参数
+     * @return SendResponse
+     */
+    SendResponse batchSend(BatchSendRequest batchSendRequest);
 }

@@ -1,10 +1,10 @@
-package com.warrior.luminate.config;
+package com.warrior.luminate.xxl.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author WARRIOR

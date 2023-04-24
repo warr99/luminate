@@ -1,12 +1,14 @@
 package com.warrior.luminate.service;
 
 
+import com.warrior.luminate.domain.BatchSendRequest;
 import com.warrior.luminate.domain.SendRequest;
 import com.warrior.luminate.domain.SendResponse;
 import com.warrior.luminate.domain.SendTaskModel;
 import com.warrior.luminate.pipeline.ProcessContext;
 import com.warrior.luminate.pipeline.ProcessController;
 import com.warrior.luminate.vo.BasicResultVO;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +41,26 @@ public class SendServiceImpl implements SendService {
                 .messageTemplateId(sendRequest.getMessageTemplateId())
                 .messageParamList(Collections.singletonList(sendRequest.getMessageParam()))
                 .build();
+        return getSendResponse(sendTaskModel, sendRequest.getCode());
+    }
+
+    @Override
+    public SendResponse batchSend(BatchSendRequest batchSendRequest) {
+        //包装成发送消息任务
+        SendTaskModel sendTaskModel = SendTaskModel.builder()
+                .messageTemplateId(batchSendRequest.getMessageTemplateId())
+                .messageParamList(batchSendRequest.getMessageParamList())
+                .build();
+
+        return getSendResponse(sendTaskModel, batchSendRequest.getCode());
+    }
+
+    @NotNull
+    private SendResponse getSendResponse(SendTaskModel sendTaskModel, String code) {
         //包装在上下文中
         ProcessContext<SendTaskModel> processContext = new ProcessContext<>();
         processContext
-                .setCode(sendRequest.getCode())
+                .setCode(code)
                 .setNeedBreak(false)
                 .setProcessModel(sendTaskModel)
                 .setResponse(BasicResultVO.success());

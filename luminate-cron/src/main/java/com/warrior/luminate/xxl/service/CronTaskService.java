@@ -1,8 +1,9 @@
-package com.warrior.luminate.service;
+package com.warrior.luminate.xxl.service;
 
-import com.warrior.luminate.entity.XxlJobGroup;
-import com.warrior.luminate.entity.XxlJobInfo;
+
 import com.warrior.luminate.vo.BasicResultVO;
+import com.warrior.luminate.xxl.entity.XxlJobGroup;
+import com.warrior.luminate.xxl.entity.XxlJobInfo;
 
 /**
  * @author WARRIOR

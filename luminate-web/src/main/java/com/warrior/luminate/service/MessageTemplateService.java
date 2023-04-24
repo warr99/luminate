@@ -28,5 +28,4 @@ public interface MessageTemplateService extends IService<MessageTemplate> {
      * @return BasicResultVO<?> BasicResultVO<?>
      */
     BasicResultVO<?> stopCronTask(Long id);
-
 }

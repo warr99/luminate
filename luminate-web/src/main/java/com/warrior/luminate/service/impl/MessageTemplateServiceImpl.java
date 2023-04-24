@@ -1,22 +1,25 @@
-package com.warrior.luminate.service;
+package com.warrior.luminate.service.impl;
 
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.warrior.luminate.constant.CommonConstant;
 import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.MessageTemplate;
-import com.warrior.luminate.entity.XxlJobInfo;
 import com.warrior.luminate.enums.AuditStatusEnums;
 import com.warrior.luminate.enums.MessageStatusEnums;
 import com.warrior.luminate.enums.RespStatusEnum;
 import com.warrior.luminate.enums.TemplateTypeEnums;
 import com.warrior.luminate.mapper.MessageTemplateMapper;
-import com.warrior.luminate.service.CronTaskService;
-import com.warrior.luminate.utils.XxlJobUtil;
+import com.warrior.luminate.service.MessageTemplateService;
 import com.warrior.luminate.vo.BasicResultVO;
+import com.warrior.luminate.xxl.entity.XxlJobInfo;
+import com.warrior.luminate.xxl.service.CronTaskService;
+import com.warrior.luminate.xxl.utils.XxlJobUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -26,6 +29,7 @@ import java.util.Objects;
  * @description 针对表【message_template(消息模板信息)】的数据库操作Service实现
  * @createDate 2023-04-03 14:14:00
  */
+@Slf4j
 @Service
 public class MessageTemplateServiceImpl extends ServiceImpl<MessageTemplateMapper, MessageTemplate>
         implements MessageTemplateService {
@@ -62,6 +66,10 @@ public class MessageTemplateServiceImpl extends ServiceImpl<MessageTemplateMappe
             BasicResultVO<?> basicResultVO = cronTaskService.saveCronTask(xxlJobInfo);
             if (RespStatusEnum.SUCCESS.getCode().equals(basicResultVO.getCode()) && ObjectUtil.isNotNull(basicResultVO.getData())) {
                 cronTaskId = Integer.valueOf(String.valueOf(basicResultVO.getData()));
+            } else {
+                log.info("start cron task fail! param:{}", JSONObject.toJSONString(basicResultVO));
+                String msg = basicResultVO.getMsg();
+                return BasicResultVO.fail(msg);
             }
         }
         //修改模板状态

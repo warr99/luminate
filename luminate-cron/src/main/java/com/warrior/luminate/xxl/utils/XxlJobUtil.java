@@ -1,26 +1,24 @@
-package com.warrior.luminate.utils;
+package com.warrior.luminate.xxl.utils;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.constant.CommonConstant;
-import com.warrior.luminate.constants.XxlJobConstant;
 import com.warrior.luminate.domain.MessageTemplate;
-import com.warrior.luminate.entity.XxlJobGroup;
-import com.warrior.luminate.entity.XxlJobInfo;
-import com.warrior.luminate.enums.ExecutorRouteStrategyEnum;
-import com.warrior.luminate.enums.MisfireStrategyEnum;
 import com.warrior.luminate.enums.RespStatusEnum;
-import com.warrior.luminate.enums.ScheduleTypeEnum;
-import com.warrior.luminate.service.CronTaskService;
 import com.warrior.luminate.vo.BasicResultVO;
+import com.warrior.luminate.xxl.constants.XxlJobConstant;
+import com.warrior.luminate.xxl.entity.XxlJobGroup;
+import com.warrior.luminate.xxl.entity.XxlJobInfo;
+import com.warrior.luminate.xxl.enums.ExecutorRouteStrategyEnum;
+import com.warrior.luminate.xxl.enums.MisfireStrategyEnum;
+import com.warrior.luminate.xxl.enums.ScheduleTypeEnum;
+import com.warrior.luminate.xxl.service.CronTaskService;
 import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.glue.GlueTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 

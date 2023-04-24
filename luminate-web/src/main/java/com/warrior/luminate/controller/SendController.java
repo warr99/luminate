@@ -1,6 +1,7 @@
 package com.warrior.luminate.controller;
 
 
+import com.warrior.luminate.domain.BatchSendRequest;
 import com.warrior.luminate.domain.SendRequest;
 import com.warrior.luminate.domain.SendResponse;
 import com.warrior.luminate.service.SendService;
@@ -31,6 +32,12 @@ public class SendController {
     @PostMapping("/send")
     public SendResponse send(@RequestBody SendRequest sendRequest) {
         return sendService.send(sendRequest);
+    }
+
+    @ApiOperation(value = "批量发送消息")
+    @PostMapping("/batchSend")
+    public SendResponse batchSend(@RequestBody BatchSendRequest batchSendRequest) {
+        return sendService.batchSend(batchSendRequest);
     }
 
 }

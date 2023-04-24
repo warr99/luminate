@@ -14,9 +14,9 @@ import com.warrior.luminate.dto.ContentModel;
 import com.warrior.luminate.enums.BusinessCode;
 import com.warrior.luminate.enums.ChannelTypeEnums;
 import com.warrior.luminate.enums.RespStatusEnum;
+import com.warrior.luminate.mapper.MessageTemplateMapper;
 import com.warrior.luminate.pipeline.Handler;
 import com.warrior.luminate.pipeline.ProcessContext;
-import com.warrior.luminate.service.MessageTemplateService;
 import com.warrior.luminate.utils.ContentHolderUtil;
 import com.warrior.luminate.vo.BasicResultVO;
 import lombok.extern.slf4j.Slf4j;
@@ -35,17 +35,17 @@ import java.util.*;
 @Component
 public class AssembleHandler implements Handler<SendTaskModel> {
 
-    private final MessageTemplateService messageTemplateService;
+    private final MessageTemplateMapper messageTemplateMapper;
 
-    public AssembleHandler(MessageTemplateService messageTemplateService) {
-        this.messageTemplateService = messageTemplateService;
+    public AssembleHandler(MessageTemplateMapper messageTemplateMapper) {
+        this.messageTemplateMapper = messageTemplateMapper;
     }
 
     @Override
     public void process(ProcessContext<SendTaskModel> context) {
         SendTaskModel sendTaskModel = context.getProcessModel();
         Long messageTemplateId = sendTaskModel.getMessageTemplateId();
-        MessageTemplate messageTemplate = messageTemplateService.getById(messageTemplateId);
+        MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
         if (messageTemplate == null || messageTemplate.getIsDeleted().equals(CommonConstant.TRUE)) {
             context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
             return;

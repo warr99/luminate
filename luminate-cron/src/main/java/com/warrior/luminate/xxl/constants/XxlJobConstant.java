@@ -1,4 +1,4 @@
-package com.warrior.luminate.constants;
+package com.warrior.luminate.xxl.constants;
 
 
 /**

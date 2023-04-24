@@ -1,7 +1,7 @@
 package com.warrior.luminate.service.deduplication;
 
-import com.warrior.luminate.service.deduplication.build.Builder;
 import com.warrior.luminate.service.deduplication.service.DeduplicationService;
+import com.warrior.luminate.service.deduplication.build.Builder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

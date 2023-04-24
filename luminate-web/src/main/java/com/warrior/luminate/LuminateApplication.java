@@ -10,6 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LuminateApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LuminateApplication.class, args);
+        try {
+            SpringApplication.run(LuminateApplication.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

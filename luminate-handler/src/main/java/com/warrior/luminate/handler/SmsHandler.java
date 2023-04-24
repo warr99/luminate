@@ -5,9 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.dto.SmsContentModel;
 import com.warrior.luminate.enums.ChannelTypeEnums;
+import com.warrior.luminate.mapper.SmsRecordMapper;
 import com.warrior.luminate.script.AliyunSmsScript;
-import com.warrior.luminate.service.SmsRecordService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,12 +20,13 @@ import org.springframework.stereotype.Component;
 public class SmsHandler extends AbstractHandler {
 
     private final AliyunSmsScript aliyunSmsScript;
-    private final SmsRecordService smsRecordService;
+    private final SmsRecordMapper smsRecordMapper;
 
-    public SmsHandler(AliyunSmsScript aliyunSmsScript, SmsRecordService smsRecordService) {
+    @Autowired
+    public SmsHandler(AliyunSmsScript aliyunSmsScript, SmsRecordMapper smsRecordMapper) {
         channelCode = ChannelTypeEnums.SMS.getCode();
         this.aliyunSmsScript = aliyunSmsScript;
-        this.smsRecordService = smsRecordService;
+        this.smsRecordMapper = smsRecordMapper;
     }
 
 
