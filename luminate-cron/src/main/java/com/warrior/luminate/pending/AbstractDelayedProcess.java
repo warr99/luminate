@@ -1,6 +1,7 @@
 package com.warrior.luminate.pending;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
@@ -56,29 +57,31 @@ public abstract class AbstractDelayedProcess<T> {
      */
     @PostConstruct
     public void consumeProcess() {
-//        while (true) {
-//            try {
-//                BlockingDeque<T> blockingDeque = pendingParam.getBlockingDeque();
-//                //从阻塞队列中获取一个待处理的任务(若队列为空,指定等待时间为`timeThreshold`(毫秒))
-//                T task = blockingDeque.poll(pendingParam.getTimeThreshold(), TimeUnit.MILLISECONDS);
-//                if (task != null) {
-//                    //将待处理任务添加到待处理任务列表
-//                    taskList.add(task);
-//                }
-//                //判断是否满足批处理的条件
-//                if (CollUtil.isNotEmpty(taskList) && isBatchTaskReady()) {
-//                    List<T> pendingList = taskList;
-//                    //清空待处理任务队列
-//                    taskList = Lists.newArrayList();
-//                    //执行待处理任务
-//                    pendingParam.executorService.execute(() -> process(pendingList));
-//                }
-//            } catch (Exception e) {
-//                log.error("Pending#initConsumePending failed:{}", Throwables.getStackTraceAsString(e));
-//            }
-//
-//        }
+        ThreadUtil.newSingleExecutor().execute(() -> {
+            while (true) {
+                try {
+                    BlockingDeque<T> blockingDeque = pendingParam.getBlockingDeque();
+                    //从阻塞队列中获取一个待处理的任务(若队列为空,指定等待时间为`timeThreshold`(毫秒))
+                    T task = blockingDeque.poll(pendingParam.getTimeThreshold(), TimeUnit.MILLISECONDS);
+                    if (task != null) {
+                        //将待处理任务添加到待处理任务列表
+                        taskList.add(task);
+                    }
+                    //判断是否满足批处理的条件
+                    if (CollUtil.isNotEmpty(taskList) && isBatchTaskReady()) {
+                        List<T> pendingList = taskList;
+                        //清空待处理任务队列
+                        taskList = Lists.newArrayList();
+                        //执行待处理任务
+                        pendingParam.executorService.execute(() -> process(pendingList));
+                    }
+                } catch (Exception e) {
+                    log.error("Pending#initConsumePending failed:{}", Throwables.getStackTraceAsString(e));
+                }
+            }
+        });
     }
+
 
     /**
      * 判断是否进行批处理 -> 当待处理队列中任务的数量 > numThreshold || 距离上次执行时间 > timeThreshold

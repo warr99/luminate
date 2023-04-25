@@ -1,7 +1,6 @@
 package com.warrior.luminate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.warrior.luminate.domain.MessageTemplate;
 import com.warrior.luminate.mapper.MessageTemplateMapper;
@@ -38,7 +37,7 @@ public class TaskHandlerServiceImpl implements TaskHandlerService {
      * @param messageTemplateId 消息模板id
      */
     @Override
-    @Async
+        @Async
     public void handle(Long messageTemplateId) {
         MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
         if (messageTemplate == null) {
