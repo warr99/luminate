@@ -1,6 +1,9 @@
 package com.warrior.luminate.service.deduplication;
 
 
+import com.ctrip.framework.apollo.Config;
+import com.ctrip.framework.apollo.spring.annotation.ApolloConfig;
+import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
 import com.warrior.luminate.enums.DeduplicationTypeEnums;
@@ -19,7 +22,11 @@ import java.util.Objects;
 public class DeduplicationRuleService {
 
 
+    @ApolloConfig("warrior.luminate")
+    private Config config;
+
     private final DeduplicationHolder deduplicationHolder;
+    public static final String DEDUPLICATION_RULE_KEY = "deduplication";
 
 
     @Autowired
@@ -28,7 +35,7 @@ public class DeduplicationRuleService {
     }
 
     public void duplication(TaskInfo taskInfo) {
-        String configurableDeduplicationParam = "{\"deduplication_10\":{\"num\":1,\"time\":300},\"deduplication_20\":{\"num\":5}}";
+        String configurableDeduplicationParam = config.getProperty(DEDUPLICATION_RULE_KEY, LuminateConstant.APOLLO_DEFAULT_VALUE_JSON_OBJECT);
         List<Integer> deduplicationList = DeduplicationTypeEnums.getDeduplicationList();
         for (Integer deduplicationCode : deduplicationList) {
             DeduplicationParam deduplicationParam = deduplicationHolder

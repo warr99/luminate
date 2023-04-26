@@ -61,14 +61,15 @@ public class MessageTemplateController {
 
     /**
      * 根据Id删除
-     * id多个用逗号分隔开
      */
     @DeleteMapping("delete/{id}")
-    @ApiOperation("/根据Ids删除")
-    public BasicResultVO<?> deleteByIds(@PathVariable("id") String id) {
-        if (StrUtil.isNotBlank(id)) {
-            List<Long> idList = Arrays.stream(id.split(StrUtil.COMMA)).map(Long::valueOf).collect(Collectors.toList());
-            messageTemplateService.removeByIds(idList);
+    @ApiOperation("/根据Id删除")
+    public BasicResultVO<?> deleteByIds(@PathVariable("id") Long id) {
+        boolean isSuccess = false;
+        if (id != null) {
+            isSuccess = messageTemplateService.removeById(id);
+        }
+        if (isSuccess) {
             return BasicResultVO.success();
         }
         return BasicResultVO.fail();
@@ -89,8 +90,7 @@ public class MessageTemplateController {
     @PostMapping("stop/{id}")
     @ApiOperation("/暂停模板的定时任务")
     public BasicResultVO<?> stop(@RequestBody @PathVariable("id") Long id) {
-        messageTemplateService.stopCronTask(id);
-        return BasicResultVO.success();
+        return messageTemplateService.stopCronTask(id);
     }
 
     @PostMapping("upload")

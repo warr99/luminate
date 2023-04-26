@@ -21,7 +21,9 @@ import com.warrior.luminate.xxl.service.CronTaskService;
 import com.warrior.luminate.xxl.utils.XxlJobUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -51,6 +53,21 @@ public class MessageTemplateServiceImpl extends ServiceImpl<MessageTemplateMappe
         }
         messageTemplate.setUpdated(Math.toIntExact(DateUtil.currentSeconds()));
         return super.saveOrUpdate(messageTemplate);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeById(Serializable id) {
+        MessageTemplate messageTemplate = getById(id);
+        if (messageTemplate == null) {
+            return false;
+        }
+        Integer cronTaskId = messageTemplate.getCronTaskId();
+        if (cronTaskId != null) {
+            cronTaskService.deleteCronTask(cronTaskId);
+        }
+
+        return false;
     }
 
     @Override

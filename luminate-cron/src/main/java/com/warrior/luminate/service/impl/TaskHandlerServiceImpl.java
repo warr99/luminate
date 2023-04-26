@@ -34,10 +34,11 @@ public class TaskHandlerServiceImpl implements TaskHandlerService {
 
     /**
      * 异步处理定时任务
+     *
      * @param messageTemplateId 消息模板id
      */
     @Override
-        @Async
+    @Async
     public void handle(Long messageTemplateId) {
         MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
         if (messageTemplate == null) {

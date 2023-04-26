@@ -1,6 +1,5 @@
 package com.warrior.luminate.handler;
 
-import com.warrior.luminate.service.SendService;
 import com.warrior.luminate.service.TaskHandlerService;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;

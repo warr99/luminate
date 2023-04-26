@@ -40,6 +40,10 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client-config-data</artifactId>
+        </dependency>
     </dependencies>
 
 

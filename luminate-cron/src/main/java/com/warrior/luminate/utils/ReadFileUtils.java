@@ -24,7 +24,7 @@ public class ReadFileUtils {
     public static void getCsvRow(String path, CsvRowHandler csvRowHandler) {
         try {
             // 把首行当做是标题，获取reader
-            CsvReader reader = CsvUtil.getReader(new FileReader(path),
+                CsvReader reader = CsvUtil.getReader(new FileReader(path),
                     new CsvReadConfig().setContainsHeader(true));
             reader.read(csvRowHandler);
         } catch (Exception e) {

@@ -19,5 +19,12 @@ public class LuminateConstant {
     public static final String DEFAULT_UPDATOR = "luminate";
     public static final String DEFAULT_TEAM = "luminate公众号";
     public static final String DEFAULT_AUDITOR = "luminate";
+
+
+    /**
+     * apollo默认的值
+     */
+    public final static String APOLLO_DEFAULT_VALUE_JSON_OBJECT = "{}";
+    public final static String APOLLO_DEFAULT_VALUE_JSON_ARRAY = "[]";
 }
 

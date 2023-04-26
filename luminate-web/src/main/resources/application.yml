@@ -29,16 +29,25 @@ spring:
     password: CXr123456_redis
     database: 2
 
+# apollo 相关配置
+app:
+  id: luminate
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: warrior.luminate
 
 
-# kafka topic name
 luminate:
+  # kafka topic name
   topic:
     name: luminate
+  # 文件下载地址
   upload:
     file:
       path:
         D:/program/upload/
+
 # 阿里云 SMS 相关配置
 aliyun:
   sms:
@@ -47,6 +56,7 @@ aliyun:
       access-key-secret: CwqIKAnKWeGEafi8Rc4ezBDKVuyVU8
       sign-name: luminate
       template-code: SMS_276225334
+
 # qq email 相关配置
 email:
   host: smtp.qq.com
@@ -55,6 +65,7 @@ email:
   from: warrior22@qq.com
   pass: mszicvbchqzwbfii
 
+# 分布式定时任务 xxl-job 配置
 xxl:
   job:
     admin:
@@ -69,4 +80,3 @@ xxl:
       logpath:
       logretentiondays: 30
     accessToken:
-
