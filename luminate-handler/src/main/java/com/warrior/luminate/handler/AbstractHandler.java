@@ -1,6 +1,7 @@
 package com.warrior.luminate.handler;
 
 import com.warrior.luminate.domain.TaskInfo;
+import com.warrior.luminate.utils.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ public abstract class AbstractHandler {
 
     @Autowired
     private HandlerHolder handlerHolder;
+
 
     protected Integer channelCode;
 

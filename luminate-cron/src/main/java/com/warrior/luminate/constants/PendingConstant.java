@@ -21,7 +21,7 @@ public class PendingConstant {
     /**
      * 触发执行的时间阈值(毫秒)
      */
-    public static final Long TIME_THRESHOLD = 1000L;
+    public static final Long TIME_THRESHOLD = 5000L;
     /**
      * 真正消费线程池配置的信息
      */

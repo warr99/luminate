@@ -1,10 +1,12 @@
 package com.warrior.luminate.service.deduplication.service;
 
 import cn.hutool.core.collection.CollUtil;
+import com.warrior.luminate.domain.AnchorInfo;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
 import com.warrior.luminate.service.deduplication.DeduplicationHolder;
 import com.warrior.luminate.service.deduplication.limit.LimitService;
+import com.warrior.luminate.utils.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +25,8 @@ public abstract class AbstractDeduplicationService implements DeduplicationServi
     protected Integer deduplicationType;
     @Autowired
     private DeduplicationHolder deduplicationHolder;
+    @Autowired
+    private LogUtils logUtils;
 
 
     @PostConstruct
@@ -50,9 +54,14 @@ public abstract class AbstractDeduplicationService implements DeduplicationServi
         TaskInfo taskInfo = param.getTaskInfo();
         Set<String> receiverSet = taskInfo.getReceiver();
         Set<String> filterReceiver = limitService.limitFilter(this, taskInfo, param);
+        //剔除符合去重条件的用户
         if (CollUtil.isNotEmpty(filterReceiver)) {
-            log.info("filter receiver {} by {}", filterReceiver.toString(),limitService.toString());
             receiverSet.removeAll(filterReceiver);
+            logUtils.recordAnchorLog(
+                    AnchorInfo.builder()
+                            .businessId(taskInfo.getBusinessId())
+                            .ids(taskInfo.getReceiver())
+                            .state(param.getAnchorState().getCode()).build());
         }
     }
 

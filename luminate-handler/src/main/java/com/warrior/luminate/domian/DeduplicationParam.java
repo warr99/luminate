@@ -2,6 +2,7 @@ package com.warrior.luminate.domian;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.warrior.luminate.domain.TaskInfo;
+import com.warrior.luminate.enums.AnchorStateEnums;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,4 +35,9 @@ public class DeduplicationParam {
      */
     @JSONField(name = "num")
     private Integer countNum;
+
+    /**
+     * 标识属于哪种去重(数据埋点)
+     */
+    private AnchorStateEnums anchorState;
 }

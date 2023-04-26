@@ -37,7 +37,7 @@ public abstract class AbstractDelayedProcess<T> {
     /**
      * 上次执行的时间
      */
-    private final Long lastHandleTime = System.currentTimeMillis();
+    private Long lastHandleTime = System.currentTimeMillis();
 
     /**
      * 将元素放入阻塞队列中
@@ -68,10 +68,14 @@ public abstract class AbstractDelayedProcess<T> {
                         taskList.add(task);
                     }
                     //判断是否满足批处理的条件
-                    if (CollUtil.isNotEmpty(taskList) && isBatchTaskReady()) {
+                    boolean notEmpty = CollUtil.isNotEmpty(taskList);
+                    boolean batchTaskReady = isBatchTaskReady();
+                    if (notEmpty && batchTaskReady) {
                         List<T> pendingList = taskList;
                         //清空待处理任务队列
                         taskList = Lists.newArrayList();
+                        //重新设置上次处理时间
+                        lastHandleTime = System.currentTimeMillis();
                         //执行待处理任务
                         pendingParam.executorService.execute(() -> process(pendingList));
                     }
@@ -89,9 +93,13 @@ public abstract class AbstractDelayedProcess<T> {
      * @return 是否进行批处理
      */
     private boolean isBatchTaskReady() {
-        return
-                taskList.size() > pendingParam.getNumThreshold() ||
-                        (System.currentTimeMillis() - lastHandleTime) > pendingParam.getTimeThreshold();
+        boolean a = taskList.size() > pendingParam.getNumThreshold();
+        boolean b = (System.currentTimeMillis() - lastHandleTime) > pendingParam.getTimeThreshold();
+//        if (a || b) {
+//            log.info("当待处理队列中任务的数量: {}; 距离上次执行时间: {}秒", taskList.size(), (System.currentTimeMillis() - lastHandleTime) / 1000);
+//        }
+        return a || b;
+
     }
 
     public void process(List<T> pendingList) {

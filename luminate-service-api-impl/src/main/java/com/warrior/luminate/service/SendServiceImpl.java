@@ -1,6 +1,7 @@
 package com.warrior.luminate.service;
 
 
+import cn.monitor4all.logRecord.annotation.OperationLog;
 import com.warrior.luminate.domain.BatchSendRequest;
 import com.warrior.luminate.domain.SendRequest;
 import com.warrior.luminate.domain.SendResponse;
@@ -35,6 +36,7 @@ public class SendServiceImpl implements SendService {
      * @return SendResponse
      */
     @Override
+    @OperationLog(bizType = "SendService#send", bizId = "#sendRequest.messageTemplateId", msg = "#sendRequest")
     public SendResponse send(SendRequest sendRequest) {
         //包装成发送消息任务
         SendTaskModel sendTaskModel = SendTaskModel.builder()
@@ -44,7 +46,14 @@ public class SendServiceImpl implements SendService {
         return getSendResponse(sendTaskModel, sendRequest.getCode());
     }
 
+    /**
+     * 批量发送消息实现方法
+     *
+     * @param batchSendRequest 批量发送请求的参数
+     * @return SendResponse
+     */
     @Override
+    @OperationLog(bizType = "SendService#batchSend", bizId = "#batchSendRequest.messageTemplateId", msg = "#batchSendRequest")
     public SendResponse batchSend(BatchSendRequest batchSendRequest) {
         //包装成发送消息任务
         SendTaskModel sendTaskModel = SendTaskModel.builder()

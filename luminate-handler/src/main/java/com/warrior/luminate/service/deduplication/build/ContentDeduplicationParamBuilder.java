@@ -2,6 +2,7 @@ package com.warrior.luminate.service.deduplication.build;
 
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
+import com.warrior.luminate.enums.AnchorStateEnums;
 import com.warrior.luminate.enums.DeduplicationTypeEnums;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,9 @@ public class ContentDeduplicationParamBuilder extends AbstractDeduplicationBuild
         if (configurableDeduplicationParam == null) {
             return null;
         }
-        return getParamsFromConfig(deduplicationType, configurableDeduplicationParam, taskInfo);
+        DeduplicationParam deduplicationParam = getParamsFromConfig(deduplicationType, configurableDeduplicationParam, taskInfo);
+        deduplicationParam.setAnchorState(AnchorStateEnums.CONTENT_DEDUPLICATION);
+        return deduplicationParam;
 
     }
 }
