@@ -1,7 +1,7 @@
 package com.warrior.luminate.pending;
 
-import cn.hutool.core.thread.ExecutorBuilder;
 import com.google.common.collect.Lists;
+import com.warrior.luminate.config.CronAsyncThreadPoolConfig;
 import com.warrior.luminate.constants.PendingConstant;
 import com.warrior.luminate.domain.BatchSendRequest;
 import com.warrior.luminate.domain.MessageParam;
@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author WARRIOR
@@ -33,12 +32,7 @@ public class BatchSendTaskDelayedProcess extends AbstractDelayedProcess<CrowdInf
         pendingParam.setNumThreshold(PendingConstant.NUM_THRESHOLD)
                 .setBlockingDeque(new LinkedBlockingDeque<>(PendingConstant.QUEUE_SIZE))
                 .setTimeThreshold(PendingConstant.TIME_THRESHOLD)
-                .setExecutorService(ExecutorBuilder.create()
-                        .setCorePoolSize(PendingConstant.CORE_POOL_SIZE)
-                        .setMaxPoolSize(PendingConstant.MAX_POOL_SIZE)
-                        .setWorkQueue(PendingConstant.BLOCKING_QUEUE)
-                        .setHandler(new ThreadPoolExecutor.CallerRunsPolicy())
-                        .build());
+                .setExecutorService(CronAsyncThreadPoolConfig.getConsumePendingThreadPool());
         this.pendingParam = pendingParam;
         this.sendService = sendService;
     }

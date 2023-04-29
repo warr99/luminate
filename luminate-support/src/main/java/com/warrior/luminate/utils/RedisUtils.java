@@ -20,10 +20,10 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class RedisUtil {
+public class RedisUtils {
     private final StringRedisTemplate redisTemplate;
 
-    public RedisUtil(StringRedisTemplate redisTemplate) {
+    public RedisUtils(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

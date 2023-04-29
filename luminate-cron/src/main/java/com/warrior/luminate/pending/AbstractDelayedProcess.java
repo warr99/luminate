@@ -5,6 +5,8 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
+import com.warrior.luminate.config.CronAsyncThreadPoolConfig;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +15,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Slf4j
+@Data
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public abstract class AbstractDelayedProcess<T> {
 
@@ -40,6 +44,11 @@ public abstract class AbstractDelayedProcess<T> {
     private Long lastHandleTime = System.currentTimeMillis();
 
     /**
+     * 是否终止线程
+     */
+    private volatile Boolean isStop = false;
+
+    /**
      * 将元素放入阻塞队列中
      *
      * @param t t
@@ -57,7 +66,8 @@ public abstract class AbstractDelayedProcess<T> {
      */
     @PostConstruct
     public void consumeProcess() {
-        ThreadUtil.newSingleExecutor().execute(() -> {
+        ExecutorService singleThreadPool = CronAsyncThreadPoolConfig.getPendingSingleThreadPool();
+        singleThreadPool.execute(() -> {
             while (true) {
                 try {
                     BlockingDeque<T> blockingDeque = pendingParam.getBlockingDeque();
@@ -79,11 +89,18 @@ public abstract class AbstractDelayedProcess<T> {
                         //执行待处理任务
                         pendingParam.executorService.execute(() -> process(pendingList));
                     }
+                    // 判断是否停止当前线程
+                    if (isStop && CollUtil.isEmpty(taskList)) {
+                        //关闭该线程
+                        singleThreadPool.shutdown();
+                        break;
+                    }
                 } catch (Exception e) {
                     log.error("Pending#initConsumePending failed:{}", Throwables.getStackTraceAsString(e));
                 }
             }
         });
+
     }
 
 
@@ -95,9 +112,6 @@ public abstract class AbstractDelayedProcess<T> {
     private boolean isBatchTaskReady() {
         boolean a = taskList.size() > pendingParam.getNumThreshold();
         boolean b = (System.currentTimeMillis() - lastHandleTime) > pendingParam.getTimeThreshold();
-//        if (a || b) {
-//            log.info("当待处理队列中任务的数量: {}; 距离上次执行时间: {}秒", taskList.size(), (System.currentTimeMillis() - lastHandleTime) / 1000);
-//        }
         return a || b;
 
     }

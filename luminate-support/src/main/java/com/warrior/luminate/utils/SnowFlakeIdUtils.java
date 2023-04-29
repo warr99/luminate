@@ -6,7 +6,7 @@ package com.warrior.luminate.utils;
  * @author cao
  * @date 2022-04-20 13:12
  */
-public class SnowFlakeIdUtil {
+public class SnowFlakeIdUtils {
 
     /**
      * 初始时间截 (2017-01-01)
@@ -68,7 +68,7 @@ public class SnowFlakeIdUtil {
      * @param dataCenterId 数据中心ID
      * @param machineId    机器标志ID
      */
-    public SnowFlakeIdUtil(long dataCenterId, long machineId) {
+    public SnowFlakeIdUtils(long dataCenterId, long machineId) {
         if (dataCenterId > MAX_DATA_CENTER_NUM || dataCenterId < 0) {
             throw new IllegalArgumentException(String.format("DtaCenterId  不能大于 %d 或小于 0", MAX_DATA_CENTER_NUM));
         }

@@ -5,7 +5,7 @@ import com.warrior.luminate.constant.LuminateConstant;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
 import com.warrior.luminate.service.deduplication.service.AbstractDeduplicationService;
-import com.warrior.luminate.utils.RedisUtil;
+import com.warrior.luminate.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,10 @@ import java.util.*;
 @Slf4j
 @Service(value = "SimpleLimitService")
 public class SimpleLimitService extends AbstractLimitService {
-    private final RedisUtil redisUtil;
+    private final RedisUtils redisUtil;
 
     @Autowired
-    public SimpleLimitService(RedisUtil redisUtil) {
+    public SimpleLimitService(RedisUtils redisUtil) {
         this.redisUtil = redisUtil;
     }
 

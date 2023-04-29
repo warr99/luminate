@@ -3,8 +3,8 @@ package com.warrior.luminate.service.deduplication.limit;
 import com.warrior.luminate.domain.TaskInfo;
 import com.warrior.luminate.domian.DeduplicationParam;
 import com.warrior.luminate.service.deduplication.service.AbstractDeduplicationService;
-import com.warrior.luminate.utils.RedisUtil;
-import com.warrior.luminate.utils.SnowFlakeIdUtil;
+import com.warrior.luminate.utils.RedisUtils;
+import com.warrior.luminate.utils.SnowFlakeIdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -23,15 +23,15 @@ import java.util.Set;
 @Service(value = "SlideWindowLimitService")
 public class SlideWindowLimitService extends AbstractLimitService {
 
-    private final RedisUtil redisUtil;
+    private final RedisUtils redisUtil;
 
-    private final SnowFlakeIdUtil snowFlakeIdUtils = new SnowFlakeIdUtil(1, 1);
+    private final SnowFlakeIdUtils snowFlakeIdUtils = new SnowFlakeIdUtils(1, 1);
 
     private DefaultRedisScript<Long> redisScript;
 
     @Autowired
 
-    public SlideWindowLimitService(RedisUtil redisUtils) {
+    public SlideWindowLimitService(RedisUtils redisUtils) {
         this.redisUtil = redisUtils;
     }
 

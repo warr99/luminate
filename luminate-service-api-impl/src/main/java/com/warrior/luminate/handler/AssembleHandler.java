@@ -17,7 +17,7 @@ import com.warrior.luminate.enums.RespStatusEnum;
 import com.warrior.luminate.mapper.MessageTemplateMapper;
 import com.warrior.luminate.pipeline.Handler;
 import com.warrior.luminate.pipeline.ProcessContext;
-import com.warrior.luminate.utils.ContentHolderUtil;
+import com.warrior.luminate.utils.ContentHolderUtils;
 import com.warrior.luminate.vo.BasicResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -103,7 +103,7 @@ public class AssembleHandler implements Handler<SendTaskModel> {
             String originValue = templateMsgContentJson.getString(fieldName);
             if (StrUtil.isNotBlank(originValue)) {
                 //如果数据库中的内容有占位符(${}),进行替换
-                String resultValue = ContentHolderUtil.replacePlaceHolder(originValue, variables);
+                String resultValue = ContentHolderUtils.replacePlaceHolder(originValue, variables);
                 ReflectUtil.setFieldValue(contentModel, field, resultValue);
             }
         }

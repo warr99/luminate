@@ -11,7 +11,7 @@ import java.util.Map;
  * @author WARRIOR
  * @version 1.0
  */
-public class ContentHolderUtil {
+public class ContentHolderUtils {
 
     /**
      * 占位符前缀

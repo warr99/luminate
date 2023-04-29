@@ -40,6 +40,7 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
         </dependency>
+        <!--分布式配置中心 apollo-->
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client-config-data</artifactId>

@@ -1,7 +1,10 @@
 package com.warrior.luminate.pending;
 
-import com.warrior.luminate.config.ThreadPoolConfig;
+import com.dtp.core.thread.DtpExecutor;
+import com.warrior.luminate.config.HandlerThreadPoolConfig;
 import com.warrior.luminate.utils.GroupIdUtils;
+import com.warrior.luminate.utils.ThreadPoolUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,21 +19,24 @@ import java.util.concurrent.ExecutorService;
  */
 @Component
 public class TaskPendingHolding {
-    private final static Integer CORE_SIZE = 3;
-    private final static Integer MAX_SIZE = 3;
-    private final static Integer QUEUE_SIZE = 100;
     private final Map<String, ExecutorService> taskPendingHolder = new HashMap<>(32);
+    private final ThreadPoolUtils threadPoolUtils;
     private static final List<String> GROUP_IDS = GroupIdUtils.getAllGroupId();
+
+    public TaskPendingHolding(ThreadPoolUtils threadPoolUtils) {
+        this.threadPoolUtils = threadPoolUtils;
+    }
 
 
     /**
      * 给每个渠道，每种消息类型初始化一个线程池
-
      */
     @PostConstruct
     public void init() {
         for (String groupId : GROUP_IDS) {
-            taskPendingHolder.put(groupId, ThreadPoolConfig.getThreadPool(CORE_SIZE, MAX_SIZE, QUEUE_SIZE));
+            DtpExecutor executor = HandlerThreadPoolConfig.getExecutor(groupId);
+            taskPendingHolder.put(groupId, executor);
+            threadPoolUtils.register(executor);
         }
     }
 

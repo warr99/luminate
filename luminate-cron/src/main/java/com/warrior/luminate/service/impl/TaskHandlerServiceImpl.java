@@ -1,9 +1,12 @@
 package com.warrior.luminate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.text.csv.CsvRow;
 import cn.hutool.core.util.StrUtil;
+import com.warrior.luminate.csv.CountFileRowHandler;
 import com.warrior.luminate.domain.MessageTemplate;
 import com.warrior.luminate.mapper.MessageTemplateMapper;
+import com.warrior.luminate.pending.AbstractDelayedProcess;
 import com.warrior.luminate.pending.BatchSendTaskDelayedProcess;
 import com.warrior.luminate.service.TaskHandlerService;
 import com.warrior.luminate.utils.ReadFileUtils;
@@ -38,7 +41,6 @@ public class TaskHandlerServiceImpl implements TaskHandlerService {
      * @param messageTemplateId 消息模板id
      */
     @Override
-    @Async
     public void handle(Long messageTemplateId) {
         MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
         if (messageTemplate == null) {
@@ -50,6 +52,8 @@ public class TaskHandlerServiceImpl implements TaskHandlerService {
             log.error("TaskHandler#handle crowdPath empty! messageTemplateId:{}", messageTemplateId);
             return;
         }
+        //获取文行数
+        long countCsvRow = ReadFileUtils.countCsvRow(messageTemplate.getCronCrowdPath(), new CountFileRowHandler());
         //读取人群文件(按行读取)
         ReadFileUtils.getCsvRow(cronCrowdPath, row -> {
             //如果获取到的行数据中,userId为空,文件已经读完,返回
@@ -68,7 +72,15 @@ public class TaskHandlerServiceImpl implements TaskHandlerService {
             //将CrowdInfoVo丢给阻塞队列
             BatchSendTaskDelayedProcess batchSendTaskDelayedProcess = context.getBean(BatchSendTaskDelayedProcess.class);
             batchSendTaskDelayedProcess.putIntoQueue(crowdInfoVo);
+            //判断是否读取文件完成回收资源且更改状态
+            onComplete(row, countCsvRow, batchSendTaskDelayedProcess, messageTemplateId);
         });
+    }
 
+    private void onComplete(CsvRow row, long countCsvRow, AbstractDelayedProcess<?> delayedProcess, Long messageTemplateId) {
+        if (row.getOriginalLineNumber() == countCsvRow) {
+            delayedProcess.setIsStop(true);
+            log.info("messageTemplate:[{}] read csv file complete!", messageTemplateId);
+        }
     }
 }
