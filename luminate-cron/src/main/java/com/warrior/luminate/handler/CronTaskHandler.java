@@ -36,7 +36,5 @@ public class CronTaskHandler {
         Long messageTemplateId = Long.valueOf(XxlJobHelper.getJobParam());
         threadPoolUtils.register(xxlCronExecutor);
         xxlCronExecutor.execute(() -> taskHandlerService.handle(messageTemplateId));
-
-
     }
 }
