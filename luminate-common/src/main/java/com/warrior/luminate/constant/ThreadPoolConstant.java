@@ -22,7 +22,7 @@ public class ThreadPoolConstant {
      * medium
      */
     public static final Integer COMMON_CORE_POOL_SIZE = 2;
-    public static final Integer COMMON_MAX_POOL_SIZE = 2;
+    public static final Integer COMMON_MAX_POOL_SIZE = 20;
     public static final Integer COMMON_KEEP_LIVE_TIME = 60;
     public static final Integer COMMON_QUEUE_SIZE = 128;
 

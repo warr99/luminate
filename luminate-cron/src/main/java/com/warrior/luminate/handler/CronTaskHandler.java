@@ -1,6 +1,8 @@
 package com.warrior.luminate.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.dtp.core.thread.DtpExecutor;
+import com.google.common.base.Throwables;
 import com.warrior.luminate.config.CronAsyncThreadPoolConfig;
 import com.warrior.luminate.service.TaskHandlerService;
 import com.warrior.luminate.utils.ThreadPoolUtils;
@@ -34,5 +36,7 @@ public class CronTaskHandler {
         Long messageTemplateId = Long.valueOf(XxlJobHelper.getJobParam());
         threadPoolUtils.register(xxlCronExecutor);
         xxlCronExecutor.execute(() -> taskHandlerService.handle(messageTemplateId));
+
+
     }
 }

@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Data
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public abstract class AbstractDelayedProcess<T> {
 
     /**
@@ -78,16 +77,14 @@ public abstract class AbstractDelayedProcess<T> {
                         taskList.add(task);
                     }
                     //判断是否满足批处理的条件
-                    boolean notEmpty = CollUtil.isNotEmpty(taskList);
-                    boolean batchTaskReady = isBatchTaskReady();
-                    if (notEmpty && batchTaskReady) {
+                    if (CollUtil.isNotEmpty(taskList) && isBatchTaskReady()) {
                         List<T> pendingList = taskList;
                         //清空待处理任务队列
                         taskList = Lists.newArrayList();
                         //重新设置上次处理时间
                         lastHandleTime = System.currentTimeMillis();
                         //执行待处理任务
-                        pendingParam.executorService.execute(() -> process(pendingList));
+                        pendingParam.executorService.execute(() -> this.process(pendingList));
                     }
                     // 判断是否停止当前线程
                     if (isStop && CollUtil.isEmpty(taskList)) {
@@ -103,15 +100,14 @@ public abstract class AbstractDelayedProcess<T> {
 
     }
 
-
     /**
      * 判断是否进行批处理 -> 当待处理队列中任务的数量 > numThreshold || 距离上次执行时间 > timeThreshold
      *
      * @return 是否进行批处理
      */
     private boolean isBatchTaskReady() {
-        boolean a = taskList.size() > pendingParam.getNumThreshold();
-        boolean b = (System.currentTimeMillis() - lastHandleTime) > pendingParam.getTimeThreshold();
+        boolean a = taskList.size() >= pendingParam.getNumThreshold();
+        boolean b = (System.currentTimeMillis() - lastHandleTime) >= pendingParam.getTimeThreshold();
         return a || b;
 
     }
@@ -120,7 +116,12 @@ public abstract class AbstractDelayedProcess<T> {
         if (ArrayUtil.isEmpty(pendingList)) {
             return;
         }
-        doHandle(pendingList);
+        try {
+            doHandle(pendingList);
+        } catch (Exception e) {
+            log.error("Pending#handle failed:{}", Throwables.getStackTraceAsString(e));
+        }
+
     }
 
     /**

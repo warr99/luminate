@@ -10,6 +10,8 @@ import com.warrior.luminate.service.SendService;
 import com.warrior.luminate.vo.CrowdInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -23,6 +25,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 @Slf4j
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class BatchSendTaskDelayedProcess extends AbstractDelayedProcess<CrowdInfoVo> {
     private final SendService sendService;
 
