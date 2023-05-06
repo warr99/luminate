@@ -18,6 +18,7 @@ import com.warrior.luminate.mapper.MessageTemplateMapper;
 import com.warrior.luminate.pipeline.Handler;
 import com.warrior.luminate.pipeline.ProcessContext;
 import com.warrior.luminate.utils.ContentHolderUtils;
+import com.warrior.luminate.utils.TaskInfoUtils;
 import com.warrior.luminate.vo.BasicResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -71,7 +72,7 @@ public class AssembleHandler implements Handler<SendTaskModel> {
         for (MessageParam messageParam : messageParamList) {
             TaskInfo taskInfo = TaskInfo.builder()
                     .messageTemplateId(messageTemplate.getId())
-                    .businessId(null)
+                    .businessId(TaskInfoUtils.generateBusinessId(messageTemplate.getId(), messageTemplate.getTemplateType()))
                     .receiver(new HashSet<>(Arrays.asList(messageParam.getReceiver().split(StrUtil.COMMA))))
                     .idType(messageTemplate.getIdType())
                     .sendChannel(messageTemplate.getSendChannel())

@@ -60,7 +60,7 @@ public abstract class AbstractDeduplicationService implements DeduplicationServi
             logUtils.recordAnchorLog(
                     AnchorInfo.builder()
                             .businessId(taskInfo.getBusinessId())
-                            .ids(taskInfo.getReceiver())
+                            .ids(filterReceiver)
                             .state(param.getAnchorState().getCode()).build());
         }
     }

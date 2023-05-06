@@ -28,7 +28,11 @@ public enum AnchorStateEnums {
     /**
      * 消息被频次去重
      */
-    RULE_DEDUPLICATION(40, "消息被频次去重");
+    RULE_DEDUPLICATION(40, "消息被频次去重"),
+    /**
+     * 下发成功（调用渠道接口成功）
+     */
+    SEND_SUCCESS(50, "消息下发成功");
     private final Integer code;
     private final String description;
 }

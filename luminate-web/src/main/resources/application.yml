@@ -42,6 +42,10 @@ luminate:
   # kafka topic name
   topic:
     name: luminate
+  # kafka log topic name
+  log:
+    topic:
+      name: luminateLog
   # 文件下载地址
   upload:
     file:
