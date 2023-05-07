@@ -11,8 +11,6 @@ import java.util.Date;
  */
 public class TaskInfoUtils {
     private static final int TYPE_FLAG = 1000000;
-    private static final String CODE = "track_code_bid";
-
     /**
      * 生成BusinessId
      * 模板类型+模板ID+当天日期

@@ -32,7 +32,12 @@ public enum AnchorStateEnums {
     /**
      * 下发成功（调用渠道接口成功）
      */
-    SEND_SUCCESS(50, "消息下发成功");
+    SEND_SUCCESS(50, "消息下发成功"),
+    /**
+     * 下发失败（调用渠道接口失败）
+     */
+    SEND_FAIL(60, "消息下发失败");
+
     private final Integer code;
     private final String description;
 }

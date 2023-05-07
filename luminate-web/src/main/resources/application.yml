@@ -27,7 +27,7 @@ spring:
     host: 192.168.20.160
     port: 6379
     password: CXr123456_redis
-    database: 2
+    database: 1
 
 # apollo 相关配置
 app:

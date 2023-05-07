@@ -33,6 +33,6 @@ public class Task implements Runnable {
         //发送消息
         handlerHolder
                 .getHandler(taskInfo.getSendChannel())
-                .handler(taskInfo);
+                .doHandler(taskInfo);
     }
 }
