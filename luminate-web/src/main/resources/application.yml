@@ -35,7 +35,7 @@ app:
 apollo:
   bootstrap:
     enabled: true
-    namespaces: warrior.luminate
+    namespaces: luminate,dynamic-tp-apollo-dtp.yml
 
 
 luminate:
@@ -56,10 +56,14 @@ luminate:
 aliyun:
   sms:
     account:
-      access-key-id: LTAI5tNRKzZv8Z73vMsEUwvq
-      access-key-secret: CwqIKAnKWeGEafi8Rc4ezBDKVuyVU8
-      sign-name: luminate
-      template-code: SMS_276225334
+      # TODO AccessKey ID
+      access-key-id:
+      # TODO Secret
+      access-key-secret:
+      # TODO 签名
+      sign-name:
+      # TODO 模板 code
+      template-code:
 
 # qq email 相关配置
 email:

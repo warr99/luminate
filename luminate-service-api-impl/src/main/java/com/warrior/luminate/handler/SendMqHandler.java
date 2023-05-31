@@ -42,8 +42,8 @@ public class SendMqHandler implements Handler<SendTaskModel> {
         try {
             ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, JSON.toJSONString(sendTaskModel.getTaskInfo(),
                     SerializerFeature.WriteClassName));
-            future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
 
+            future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
                 @Override
                 public void onSuccess(SendResult<String, String> result) {
                     log.info("send kafka success! params:{}", JSON.toJSONString(sendTaskModel.getTaskInfo()));

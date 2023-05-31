@@ -22,7 +22,7 @@ import java.util.Objects;
 public class DeduplicationRuleService {
 
 
-    @ApolloConfig("warrior.luminate")
+    @ApolloConfig("luminate")
     private Config config;
 
     private final DeduplicationHolder deduplicationHolder;
@@ -35,6 +35,7 @@ public class DeduplicationRuleService {
     }
 
     public void duplication(TaskInfo taskInfo) {
+        // {"deduplication_10":{"num":1,"time":300},"deduplication_20":{"num":5}}
         String configurableDeduplicationParam = config.getProperty(DEDUPLICATION_RULE_KEY, LuminateConstant.APOLLO_DEFAULT_VALUE_JSON_OBJECT);
         List<Integer> deduplicationList = DeduplicationTypeEnums.getDeduplicationList();
         for (Integer deduplicationCode : deduplicationList) {

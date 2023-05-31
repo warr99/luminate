@@ -5,8 +5,8 @@
 --ARGV[4]: score 对应的唯一value
 -- 从有序集合 KEYS[1] 中删除分值在0到 ARGV[2]-ARGV[1] 之间的所有元素,清理过期元素
 redis.call('zremrangeByScore', KEYS[1], 0, ARGV[2]-ARGV[1])
-local res = redis.call('zcard', KEYS[1])
 -- 获取有序集合 KEYS[1] 中当前的元素数量，并将结果赋值给本地变量 res
+local res = redis.call('zcard', KEYS[1])
 -- 是否超过阈值
 if (res == nil) or (res < tonumber(ARGV[3])) then
     -- 元素数量小于阈值，则向有序集合中添加一个新元素，score = ARGV[2],value = ARGV[4]
