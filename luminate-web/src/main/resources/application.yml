@@ -35,7 +35,7 @@ app:
 apollo:
   bootstrap:
     enabled: true
-    namespaces: luminate,dynamic-tp-apollo-dtp.yml
+    namespaces: luminate
 
 
 luminate:
@@ -71,7 +71,7 @@ email:
   port: 465
   user: warrior22@qq.com
   from: warrior22@qq.com
-  pass: mszicvbchqzwbfii
+  pass: olwchljsnxugbecb
 
 # 分布式定时任务 xxl-job 配置
 xxl:

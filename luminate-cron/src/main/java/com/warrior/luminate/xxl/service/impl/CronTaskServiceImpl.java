@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.google.common.base.Throwables;
 import com.warrior.luminate.enums.RespStatusEnum;
 import com.warrior.luminate.vo.BasicResultVO;
@@ -119,6 +120,10 @@ public class CronTaskServiceImpl implements CronTaskService {
         HttpResponse response = null;
         try {
             response = HttpRequest.post(path).form(params).cookie(getCookie()).execute();
+            JSONArray data = JSON.parseObject(response.body()).getJSONArray("data");
+            if (data == null) {
+                return null;
+            }
             Integer id = JSON.parseObject(response.body()).getJSONArray("data").getJSONObject(0).getInteger("id");
             if (response.isOk() && Objects.nonNull(id)) {
                 return BasicResultVO.successWithData(id);
